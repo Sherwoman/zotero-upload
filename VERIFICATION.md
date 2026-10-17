@@ -9,12 +9,13 @@
 - 文本提取改为优先使用同一个 PDF 工作线程的 `pdf.getFulltext`（纯文本、最多 5 页），并把结构化页面树的词元收集扩展到**全部返回页**作为兜底；两者结果合并后供 DOI/题名匹配。
 - 若仍无文本层，写入明确警告"PDF 未提供可提取的文本层（可能是扫描件）"，不再静默失败。
 - 新增**无 DOI 时的 Crossref 题名检索兜底**：仅当题名完全一致或相似度 ≥ 0.92，且候选作者姓氏或发表年份能在 PDF 首页文本中佐证时才采用，并在来源中标注（`PDF 题名 + Crossref 题名检索`）。无可靠结果时不采用，退回"保留独立 PDF"。
+- Crossref 记录本身不含作者时（如 `10.1109/TDMR.2014.2320538`，Crossref 返回空 `author` 数组），在匹配详情中明确提示"Crossref 未提供作者信息，导入后需人工补全作者"，不再无声地生成无作者条目。
 
 界面（`content/review.js`、`content/review.css`）：把每行的原生 `<select class="row-action">` 下拉框替换为原生配色的**分段控件**（`role="radiogroup"` + `aria-checked`），候选（暂不处理 / 新增 / 仅增加分类）同行横排，默认高亮推荐项；去掉了在同一窗口里被渲染成一长串的选项列表。写入、默认值与防覆盖逻辑完全沿用旧路径（仍按 `value` 拆分为 `skip` / `new` / `reuse:<key>`）。
 
 本次验证：`node --check` 通过（`upload.js`、`core.js`、`content/review.js`）；核心保护测试 `node test_core.cjs` 通过；`python -X utf8 build.py` 可复现构建。**未在真实 Zotero 运行时中重启验证**本次检索与界面改动（本轮未启动 Zotero），升级后第九条之前的 8 项保护逻辑未改动。
 
-1.1.2 XPI SHA-256：`DCD54A066B7D999AC16780B73FBB023EC6E632F2BB1D6573D3193BCE34A44676`。
+1.1.2 XPI SHA-256：`17162737CCF3FD4F717199B75225C4FFDF2DF307A306451492CC4CDA0107AA1F`。
 
 ## 1.1.1 工具菜单与图标统一（2026-10-15）
 

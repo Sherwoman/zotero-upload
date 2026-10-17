@@ -145,6 +145,7 @@ var Upload = {
       const authorOk = author.length >= 4 && header.includes(author);
       const year = UploadCore.year(record.date), yearOk = !!year && year === UploadCore.year(header);
       if (!authorOk && !yearOk) { warnings.push("题名候选缺少作者或年份佐证：" + candidate); continue; }
+      if (!record.creators.length) warnings.push("Crossref 未提供作者信息，导入后需人工补全作者");
       return { ...record, provenance: "PDF 题名 + Crossref 题名检索（题名与" + (authorOk ? "作者" : "年份") + "佐证一致）", warnings };
     }
     return null;
@@ -168,8 +169,10 @@ var Upload = {
       try {
         const m = this.registryRecord(await this.crossref("https://api.crossref.org/works/" + encodeURIComponent(value)));
         const visibleTitle = UploadCore.titleKey(m.title);
-        if (UploadCore.similarity(m.title, title) >= 0.8 || (visibleTitle.length > 25 && cleanText.includes(visibleTitle)))
+        if (UploadCore.similarity(m.title, title) >= 0.8 || (visibleTitle.length > 25 && cleanText.includes(visibleTitle))) {
+          if (!m.creators.length) warnings.push("Crossref 未提供作者信息，导入后需人工补全作者");
           return { ...m, provenance: "PDF 首页 DOI + Crossref，已核对题名", warnings };
+        }
       } catch (_) { warnings.push("DOI 检索失败：" + value); }
     }
     // No DOI anywhere in the PDF: fall back to a strictly verified Crossref title search.
