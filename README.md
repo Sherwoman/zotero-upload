@@ -4,10 +4,6 @@
 
 > 当前版本 **1.1.2**，面向 Zotero **10.0.6**。
 
-![Upload 核对窗口](preview-light.png)
-
-浅色 / 深色 / 窄窗口：[`preview-light.png`](preview-light.png)、[`preview-dark.png`](preview-dark.png)、[`preview-compact.png`](preview-compact.png)
-
 ## 它解决什么问题
 
 把新 PDF 拖进 Zotero 时，最容易出事的不是"导入失败"，而是**重复文献悄悄把已有题录和附件弄乱**：同一篇论文多出一条题录、原条目的 PDF 被替换、已经写好的笔记和批注对不上。
@@ -74,7 +70,7 @@ SHA-256（1.1.2）：
 
 ```powershell
 python -X utf8 .\upload_cli.py health
-python -X utf8 .\upload_cli.py preview "C:\文献目录" --library 1 --collection PGXSYWTD --out preview.json
+python -X utf8 .\upload_cli.py preview "C:\文献目录" --library 1 --collection ABCD1234 --out preview.json
 ```
 
 第二条命令只生成预览文件。提交需要另外明确编写决定文件：
@@ -111,8 +107,9 @@ PDF 内容与题名比对在本机完成，**不上传 PDF**。外部请求只�
 | `content/` | 核对窗口（XHTML / CSS / JS / 图标）。 |
 | `bootstrap.js` | 启动与关闭。 |
 | `upload_cli.py` | 带鉴权的本机命令行客户端，仅用标准库。 |
+| `addon_cli.py` | 通过临时 Marionette 会话调用 Zotero 原生插件管理器（仅调试用）。 |
 | `build.py` | 按 `manifest.json` 版本号生成 `Upload-<version>.xpi`。 |
-| `test_core.cjs`、`test_integration.py`、`test_ui.py` | 核心保护测试、隔离文库验证与界面验证。 |
+| `test_core.cjs` | 核心保护与默认规则测试（`node test_core.cjs`，无第三方依赖）。 |
 
 ## 自行构建
 
@@ -126,7 +123,7 @@ python -X utf8 .\build.py
 
 ## 验证记录
 
-安装、隔离文库验证与正式文库验收的完整记录见 [`VERIFICATION.md`](VERIFICATION.md)，机器可读结果见 `*-verification*.json`。
+本仓库只包含插件功能代码与构建脚本，不含任何个人文库、账号或使用记录。可自行运行 `node test_core.cjs` 复核核心保护与默认规则，并用 `python -X utf8 build.py` 复现安装包。
 
 ## 卸载
 
