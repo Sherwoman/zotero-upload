@@ -1,0 +1,23 @@
+{
+  "health": {
+    "plugin": "Upload",
+    "version": "1.0.0",
+    "authenticatedWrites": true,
+    "existingRecordsImmutable": true,
+    "uiWindows": 1,
+    "pending": 2
+  },
+  "unsafeRequestsRejected": true,
+  "beforeCount": 447,
+  "previewCreatedZeroItems": true,
+  "reused": 9,
+  "created": 11,
+  "newPDFHashesVerified": true,
+  "canonicalMetadataPreserved": true,
+  "canonicalPDFHashesPreserved": true,
+  "nativeImportPrompted": true,
+  "differentDOIReuseRejected": true,
+  "newDuplicateRecoverablyTrashed": true,
+  "toolbarAndDialogVerified": true,
+  "finalCount": 459
+}

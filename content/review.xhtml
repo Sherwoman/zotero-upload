@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="color-scheme" content="light dark"/>
+  <title>Upload · 文献导入</title>
+  <link rel="stylesheet" href="chrome://zotero/skin/zotero.css"/>
+  <link rel="stylesheet" href="review.css"/>
+  <script src="review.js" defer="defer"></script>
+</head>
+<body data-empty="true">
+  <header class="header">
+    <div class="brand">
+      <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4m-4 4 4-4 4 4M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg>
+      <div><h1>Upload</h1><p class="subtitle">文献导入与分类整理</p></div>
+    </div>
+    <span class="header-note">保留原题录与附件</span>
+  </header>
+  <section class="toolbar" aria-label="导入设置">
+    <div id="destination" class="destination"></div>
+    <div class="toolbar-actions">
+      <button id="choose" class="button">选择 PDF</button>
+      <button id="reset" class="button quiet">更换分类</button>
+      <button id="pending" class="button quiet">待核对项</button>
+    </div>
+  </section>
+  <main id="content" class="content">
+    <div class="list-heading"><h2>文献预览</h2><span id="count" class="muted"></span></div>
+    <p id="status" class="status" role="status" aria-live="polite">正在读取当前分类…</p>
+    <div id="empty" class="empty">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 7h13l8 8v26H12V7h3m13 0v9h8M18 24h12m-12 6h9"/></svg>
+      <h2>添加需要整理的文献</h2>
+      <p>选择 PDF，自动检索元信息并核对已有题录。</p>
+      <span class="empty-hint">重复文献仅加分类，新文献独立新增</span>
+    </div>
+    <div id="rows" class="rows"></div>
+  </main>
+  <footer class="footer">
+    <div class="footer-copy"><div id="selection-summary">重复仅加分类 · 新文献新增</div><div class="footer-hint">核对后确认执行，冲突项留待处理</div></div>
+    <div class="footer-actions"><button id="close" class="button">关闭</button><button id="commit" class="button primary" disabled="disabled">确认处理</button></div>
+  </footer>
+</body>
+</html>
